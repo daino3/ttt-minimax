@@ -1,10 +1,10 @@
 require 'rspec'
-require 'pry'
-require_relative 'game'
-require_relative 'constants'
+require_relative '../models/game'
+require_relative '../constants'
 require_relative 'spec_helper'
+require_relative '../models/human'
 
-describe '#game' do
+describe 'Game' do
   let(:game) {Game.new}
   
   describe '#initialize' do
