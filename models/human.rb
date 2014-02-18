@@ -7,9 +7,13 @@ class Human
     @marker = marker
   end
 
+  def prompt
+    print ">>"
+  end
+
   def move(game_instance) #can't test this because gets.chomp?
     while true
-      index = gets.chomp.to_i
+      prompt; index = gets.chomp.to_i
       break if valid_input?(index, game_instance)
     end
     game_instance.take_square(@marker, index)

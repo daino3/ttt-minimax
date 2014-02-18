@@ -85,6 +85,7 @@ class Game
   def next_player_turn(player)
     print_board
     player.move(self)
+    puts "------------------"
     return check_game_state
   end
 
@@ -95,6 +96,7 @@ class Game
     sec_player   = [p1, p2][index_of_p1 == 0 ? 1 : 0]
     puts "Player is #{X_MARKER} and the computer is #{O_MARKER}"
     puts "#{first_player.marker} is up first"
+    puts "-----------------"
     Game.new.play(first_player, sec_player)
   end
 
@@ -104,6 +106,7 @@ class Game
     first_player = [p1, p2][index_of_p1]
     sec_player   = [p1, p2][index_of_p1 == 0 ? 1 : 0]
     puts "#{first_player.marker} is up first"
+    puts "-----------------"
     Game.new.play(first_player, sec_player)
   end
 

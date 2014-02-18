@@ -13,6 +13,4 @@ rspec all_spec.rb
 ```
 
 ### Solution Overview:
-There are 3 classes: Game, Human, Computer. The Game class houses almost all of the logic in regards to the board, winning combinations and communication to the user. The Human class is lean and hash one method 'move' which gets input from the command line. The Computer class has all the minimax magic. 
-
-
+There are 3 classes: Game, Human, Computer. The Game class houses almost all of the logic in regards to the board, winning combinations and communication to the user. The Human class is lean and has methods only related to getting input from the user via the command line. The Computer class has all the minimax magic. 

@@ -59,14 +59,24 @@ describe 'Game' do
   end
 
   describe '#is_winner?' do
-    it 'returns false if there is no winner' do
-      expect(game.is_winner?).to be_false
+    context 'when there IS A winner..' do
+      it 'returns true' do
+        game.board[0] = game.board[1] = game.board[2] = "H"
+        expect(game.is_winner?).to be_true
+      end
+
+      it 'changes the winner variable' do
+        game.board[0] = game.board[1] = game.board[2] = "H"
+        expect{game.is_winner?}.to change{game.winner}.from(nil).to("H")
+      end
+    end
+ 
+    context 'when there is NO winner' do
+      it 'returns false' do
+        expect(game.is_winner?).to be_false
+      end
     end
 
-    it 'returns true if there is a winner' do
-      game.board[0], game.board[1], game.board[2] = "H"
-      expect(game.is_winner?).to be_false
-    end
   end
 
   describe '#is_tie?' do
