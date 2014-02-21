@@ -14,8 +14,10 @@ class Game
   end
 
   def print_board # can't test this?
+    clone = @board.dup
+    clone.each_with_index { |box, index| clone[index] = index if box == EMPTY }
     3.times do |index|
-      print @board.slice(3*index, 3).join(' | '), "\n"
+      print clone.slice(3*index, 3).join(' | '), "\n"
     end
   end
 
@@ -89,25 +91,29 @@ class Game
     return check_game_state
   end
 
-  def start_computer_game #can't test this?
+  def start_computer_game # can't test this?
     p1, p2 = Human.new(X_MARKER), Computer.new(O_MARKER)
-    index_of_p1  = rand(0..1)
-    first_player = [p1, p2][index_of_p1]
-    sec_player   = [p1, p2][index_of_p1 == 0 ? 1 : 0]
+    player1, player2 = determine_first_player(p1,p2)
     puts "Player is #{X_MARKER} and the computer is #{O_MARKER}"
-    puts "#{first_player.marker} is up first"
+    puts "#{player1.marker} is up first"
     puts "-----------------"
-    Game.new.play(first_player, sec_player)
+    Game.new.play(player1, player2)
   end
 
-  def start_local_game #can't test this?
+  def start_local_game # can't test this?
     p1, p2 = Human.new(X_MARKER), Human.new(O_MARKER)
-    index_of_p1  = rand(0..1)
-    first_player = [p1, p2][index_of_p1]
-    sec_player   = [p1, p2][index_of_p1 == 0 ? 1 : 0]
-    puts "#{first_player.marker} is up first"
+    player1, player2 = determine_first_player(p1,p2)
+    puts "#{player1.marker} is up first"
     puts "-----------------"
-    Game.new.play(first_player, sec_player)
+    Game.new.play(player1, player2)
+  end
+
+
+  def determine_first_player(p1, p2)
+    i = rand(0..1)
+    player1   = [p1, p2][i]
+    player2   = [p1, p2][i == 0 ? 1 : 0]
+    return player1, player2
   end
 
   def play_again? #can't test this?
@@ -118,8 +124,8 @@ class Game
         start_game
       elsif input == "no"
         puts "Thanks for playing, goodbye!!"
-        break
       end
+      break
     end
   end
 
