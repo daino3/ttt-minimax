@@ -1,8 +1,4 @@
-require 'rspec'
-require_relative '../models/game'
-require_relative '../constants'
-require_relative 'spec_helper'
-require_relative '../models/human'
+require 'spec_helper'
 
 describe 'Human' do
   let(:human) {Human.new("Hello")}

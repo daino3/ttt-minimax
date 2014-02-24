@@ -1,3 +1,4 @@
+load File.expand_path('../../config/environment.rb',  __FILE__)
 require 'stringio'
  
 module Kernel

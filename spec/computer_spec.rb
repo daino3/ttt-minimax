@@ -1,9 +1,4 @@
-require 'rspec'
-require 'pry'
-require_relative '../models/game'
-require_relative '../constants'
-require_relative 'spec_helper'
-require_relative '../models/human'
+require 'spec_helper'
 
 describe 'Computer' do
   let(:computer) {Computer.new(X_MARKER)}
