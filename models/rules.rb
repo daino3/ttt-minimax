@@ -1,4 +1,5 @@
 class Rules
+  attr_reader :game, :board
 
   def initialize(game_instance)
     @game  = game_instance

@@ -8,13 +8,9 @@ class Game
     @winner = nil
   end
 
-  def take_square(marker, index)
-    @board.boxes[index] = marker
-    @last_moves.push(index) # put last index into last_moves array
-  end
-
-  def game_over?
-    Rules.new(self).is_gameover?
+  def start_game # can't test this?
+    user_response = @ui.determine_game_type
+    user_response == "yes" ? GameFactory.new.start_computer_game : GameFactory.new.start_local_game
   end
 
   def play(player1, player2)
@@ -27,14 +23,18 @@ class Game
     play_again?
   end
 
-  def start_game # can't test this?
-    user_response = @ui.determine_game_type
-    user_response == "yes" ? GameFactory.new.start_computer_game : GameFactory.new.start_local_game
+  def take_square(marker, index)
+    @board.boxes[index] = marker
+    @last_moves.push(index)
   end
 
   private
 
-  def play_again? #can't test this?
+  def game_over?
+    Rules.new(self).is_gameover?
+  end
+
+  def play_again? 
     response = @ui.ask_to_play_again
     response == "yes" ? start_game : @ui.display_exit_message
   end

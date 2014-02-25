@@ -1,4 +1,5 @@
 class GameFactory
+  attr_reader :ui
 
   def initialize
     @ui = UserInterface.new
@@ -20,6 +21,8 @@ class GameFactory
     @ui.print_visual_break
     Game.new.play(p1, p2)
   end
+
+  private
 
   def determine_first_player(p1, p2)
     i = rand(0..1)
