@@ -6,7 +6,7 @@ class Human
   end
 
   def move(game_instance)
-    HumanMove.new(game_instance, @marker).make_move
+    HumanMove.new(game_instance, self).make_move
   end
 
 end

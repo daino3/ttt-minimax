@@ -6,9 +6,14 @@ class Computer
     @opponent = (@marker == X_MARKER) ? O_MARKER : X_MARKER
   end
 
-  def move(game_instance)
+  def move(game_instance) # should do something similar as with human_move bc we're passing around an instance of a game
     move_position, score = max_move(game_instance)
-    game_instance.take_square(@marker, move_position)
+    take_square(game_instance, @marker, move_position)
+  end
+
+  def take_square(game_instance, marker, index)
+    game_instance.board.boxes[index] = @marker
+    game_instance.last_moves.push(index)
   end
 
   def revert_last_move(game_instance)

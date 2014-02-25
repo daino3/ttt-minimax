@@ -1,23 +1,20 @@
 class Game
   attr_accessor :winner, :last_moves, :board
 
-  def initialize
+  def initialize(player1, player2, board=Board.new)
+    @player1 = player1
+    @player2 = player2
+    @current_player = player1
     @ui     = UserInterface.new
-    @board  = Board.new
+    @board  = board
     @last_moves = []
     @winner = nil
   end
 
-  def start_game # can't test this?
-    user_response = @ui.determine_game_type
-    user_response == "yes" ? GameFactory.new.start_computer_game : GameFactory.new.start_local_game
-  end
-
-  def play(player1, player2)
-    current_player = player1
+  def play
     until game_over?
-      next_player_turn(current_player)
-      current_player = (current_player == player1) ? player2 : player1
+      player_turn
+      change_player
     end
     @ui.display_game_recap(self)
     play_again?
@@ -28,21 +25,25 @@ class Game
     @last_moves.push(index)
   end
 
-  private
-
   def game_over?
     Rules.new(self).is_gameover?
   end
 
+  private
+
   def play_again? 
     response = @ui.ask_to_play_again
-    response == "yes" ? start_game : @ui.display_exit_message
+    response == "yes" ? GameStarter.new.create_game.play : @ui.display_exit_message
   end
 
-  def next_player_turn(player)
+  def player_turn
     @ui.print_board(@board)
-    player.move(self)
+    @current_player.move(self)
     @ui.print_visual_break
+  end
+
+  def change_player
+    @current_player = (@current_player == @player1) ? @player2 : @player1
   end
 
 end
