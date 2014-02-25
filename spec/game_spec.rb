@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Game do
-  let(:game) {Game.new}
+  let(:player1) { Human.new(O_MARKER) }
+  let(:player2) { Human.new(X_MARKER) }
+  let(:game)    { Game.new(player1, player2) }
   
   describe '#initialize' do
     it 'creates a game_board' do
@@ -14,17 +16,6 @@ describe Game do
 
     it 'creates a winner variable which is set to nil' do
       expect(game.winner).to be_nil
-    end
-  end
-
-  describe '#take_square' do
-    it 'returns an array with the indexes of empty boxes' do
-      game.take_square("TEST",0)
-      expect(game.board.boxes[0] == "TEST").to be_true 
-    end
-
-    it 'shovels the last move into the last_moves array' do
-      expect{game.take_square("TEST",0)}.to change{game.last_moves.length}.from(0).to(1) 
     end
   end
 

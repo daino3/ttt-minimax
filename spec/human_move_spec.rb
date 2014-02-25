@@ -1,13 +1,15 @@
 require 'spec_helper'
 
 describe HumanMove do
-  let(:game) {Game.new}
-  let(:human_move) {HumanMove.new(game, "Hello")}
+  let(:player1)    { Human.new(O_MARKER) }
+  let(:player2)    { Computer.new(X_MARKER) }
+  let(:game)       { Game.new(player1, player2) }
+  let(:human_move) { HumanMove.new(game, player1) }
 
   describe '#initialize' do
     it 'is initialized with a game_instance, marker' do
       expect(human_move.game_instance).to be_an(Game)
-      expect(human_move.marker).to eq("Hello")
+      expect(human_move.marker).to eq(O_MARKER)
     end
 
     it 'instantiates a user_interface' do
@@ -20,7 +22,7 @@ describe HumanMove do
       it 'marks the gameboard at said index' do
         human_move.stub(:get_index) { 1 }
         human_move.make_move
-        expect(game.board.boxes[1]).to eq("Hello")
+        expect(game.board.boxes[1]).to eq(O_MARKER)
       end
     end
   end

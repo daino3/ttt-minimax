@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe Rules do
-  let(:game)  {Game.new}
-  let(:rules) {Rules.new(game)}
+  let(:player1) {Human.new(X_MARKER)}
+  let(:player2) {Computer.new(O_MARKER)}
+  let(:game)    {Game.new(player1, player2)}
+  let(:rules)   {Rules.new(game)}
 
   describe '#initialize' do
     it 'is initialized with a game_instance' do

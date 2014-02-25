@@ -11,8 +11,6 @@ class HumanMove
     take_square(get_index)
   end
 
-  private
-
   def take_square(index)
     @game_instance.board.boxes[index] = @marker
     @game_instance.last_moves.push(index)

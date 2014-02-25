@@ -5,14 +5,14 @@ class GameStarter
     @ui = UserInterface.new
   end
 
-  def create_game # can't test this?
+  def create_game
     user_response = @ui.determine_game_type
     user_response == "yes" ? create_computer_game : create_local_game
   end
 
   private
 
-  def create_computer_game # can't test this?
+  def create_computer_game
     h, c = Human.new(X_MARKER), Computer.new(O_MARKER)
     p1, p2 = determine_first_player(h,c)
     @ui.cpu_game_start_message

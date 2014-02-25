@@ -11,7 +11,7 @@ class Computer
     take_square(game_instance, @marker, move_position)
   end
 
-  def take_square(game_instance, marker, index)
+  def take_square(game_instance, index)
     game_instance.board.boxes[index] = @marker
     game_instance.last_moves.push(index)
   end

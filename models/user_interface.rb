@@ -1,4 +1,5 @@
 class UserInterface
+  attr_reader :input, :output
 
   def initialize(input = $stdin, output = $stdout)
     @input  = input

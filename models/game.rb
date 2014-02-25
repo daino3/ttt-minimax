@@ -1,5 +1,5 @@
 class Game
-  attr_accessor :winner, :last_moves, :board
+  attr_accessor :winner, :last_moves, :board, :player1, :player2
 
   def initialize(player1, player2, board=Board.new)
     @player1 = player1
@@ -18,11 +18,6 @@ class Game
     end
     @ui.display_game_recap(self)
     play_again?
-  end
-
-  def take_square(marker, index)
-    @board.boxes[index] = marker
-    @last_moves.push(index)
   end
 
   def game_over?
