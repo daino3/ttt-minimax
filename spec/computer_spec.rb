@@ -48,12 +48,12 @@ describe Computer do
 
   describe '#take_square' do
     it 'it claims a box on the board of an instance of a game' do
-      computer.take_square(game, 0)
-      expect(game.board.boxes[0] == computer.marker).to be_true 
+      computer.take_square(game, O_MARKER, 0)
+      expect(game.board.boxes[0] == O_MARKER).to be_true 
     end
 
     it 'shovels the last move into the last_moves array' do
-      expect{computer.take_square(game, 0)}.to change{game.last_moves.length}.from(0).to(1) 
+      expect{computer.take_square(game, X_MARKER, 0)}.to change{game.last_moves.length}.from(0).to(1) 
     end
   end
 

@@ -6,27 +6,16 @@ class GameStarter
   end
 
   def create_game
-    user_response = @ui.determine_game_type
-    user_response == "yes" ? create_computer_game : create_local_game
+    p1, p2 = create_players(@ui.determine_game_type)
+    p1, p2 = determine_first_player(p1, p2)
+    @ui.display_game_start_message(p1, p2)
+    Game.new(p1, p2)
   end
 
   private
 
-  def create_computer_game
-    h, c = Human.new(X_MARKER), Computer.new(O_MARKER)
-    p1, p2 = determine_first_player(h,c)
-    @ui.cpu_game_start_message
-    @ui.display_first_player(p1)
-    @ui.print_visual_break
-    Game.new(p1, p2)
-  end
-
-  def create_local_game # can't test this?
-    h1, h2 = Human.new(X_MARKER), Human.new(O_MARKER)
-    p1, p2 = determine_first_player(h1,h2)
-    @ui.display_first_player(p1)
-    @ui.print_visual_break
-    Game.new(p1, p2)
+  def create_players(response)
+    return Human.new(X_MARKER), response == "yes" ? Computer.new(O_MARKER) : Human.new(O_MARKER)
   end
 
   def determine_first_player(p1, p2)

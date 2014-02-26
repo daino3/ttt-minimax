@@ -11,8 +11,8 @@ class Computer
     take_square(game_instance, @marker, move_position)
   end
 
-  def take_square(game_instance, index)
-    game_instance.board.boxes[index] = @marker
+  def take_square(game_instance, marker, index)
+    game_instance.board.boxes[index] = marker
     game_instance.last_moves.push(index)
   end
 
@@ -29,9 +29,9 @@ class Computer
     empty_box_indices = game_instance.board.get_free_positions
 
     empty_box_indices.each do |index|
-      game_instance.take_square(@marker, index) # take_square with computer marker
+      take_square(game_instance, @marker, index) # take_square with computer marker
 
-      if game_instance.game_over?
+      if Rules.new(game_instance).is_gameover?
         score = get_score(game_instance)
       else
         move_position, score = min_move(game_instance) # call min_move
@@ -54,9 +54,9 @@ class Computer
     empty_box_indices = game_instance.board.get_free_positions
 
     empty_box_indices.each do |index|
-      game_instance.take_square(@opponent, index) # take_square with opponent marker
+      take_square(game_instance, @opponent, index) # take_square with opponent marker
   
-      if game_instance.game_over?
+      if Rules.new(game_instance).is_gameover?
         score = get_score(game_instance)
       else
         move_position, score = max_move(game_instance) # call max_move

@@ -17,8 +17,14 @@ class UserInterface
     return response
   end
 
-  def cpu_game_start_message
-    @output.puts("Player is #{X_MARKER} and the computer is #{O_MARKER}")
+  def display_game_start_message(p1, p2)
+    display_players(p1, p2)
+    display_first_player(p1)
+    print_visual_break
+  end
+
+  def display_players(p1, p2)
+    @output.puts("Player 1 is #{p1.class}(#{p1.marker}) and Player 2 is #{p2.class}(#{p2.marker})")
   end
 
   def display_first_player(p1)

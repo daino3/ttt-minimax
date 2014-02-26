@@ -3,8 +3,8 @@ class HumanMove
   
   def initialize(game_instance, player)
     @game_instance = game_instance
-    @marker = player.marker
-    @ui = UserInterface.new
+    @marker        = player.marker
+    @ui            = UserInterface.new
   end
 
   def make_move

@@ -11,7 +11,7 @@ class Game
     @winner = nil
   end
 
-  def play
+  def play # how do I test this?
     until game_over?
       player_turn
       change_player
@@ -20,11 +20,11 @@ class Game
     play_again?
   end
 
+  private
+
   def game_over?
     Rules.new(self).is_gameover?
   end
-
-  private
 
   def play_again? 
     response = @ui.ask_to_play_again
