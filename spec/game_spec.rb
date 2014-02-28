@@ -32,7 +32,7 @@ describe Game do
 
   describe '#change_player' do
     it 'changes the current_player instance variable' do
-      expect{game.change_player}.to change{game.current_player}.from(player1).to(player2)
+      expect{game.send(:change_player)}.to change{game.current_player}.from(player1).to(player2)
     end
   end
 end
