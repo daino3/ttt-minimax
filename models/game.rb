@@ -25,11 +25,11 @@ class Game
     @last_moves.push(index)
   end
 
+  private
+
   def change_player
     @current_player = (@current_player == @player1) ? @player2 : @player1
   end
-
-  private
 
   def game_over?
     Rules.new(self).is_gameover?
