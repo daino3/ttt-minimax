@@ -9,8 +9,8 @@ ruby play.rb
 ```
 To run test suite:
 ```
-rspec all_spec.rb
+rspec
 ```
 
 ### Solution Overview:
-There are 3 classes: Game, Human, Computer. The Game class houses almost all of the logic in regards to the board, winning combinations and communication to the user. The Human class is lean and has methods only related to getting input from the user via the command line. The Computer class has all the minimax magic. 
+There are 8 classes: Board, Computer, Game, GameStarter, Human, MoveValidator, Rules and UserInterface. The Game class houses the logic to request moves from players and play through the game. The GameStarter creates Game objects by asking the user for the appropriate players. The Human class is lean and has methods only related to getting input from the user via the command line. The Computer class has all the minimax magic which needs to be refactored into its own class - this is a doozy. 
