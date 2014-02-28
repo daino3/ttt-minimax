@@ -1,19 +1,9 @@
-class HumanMove
-  attr_reader :game_instance, :marker, :ui
+class MoveValidator
+  attr_reader :game_instance, :ui
   
-  def initialize(game_instance, player)
+  def initialize(game_instance)
     @game_instance = game_instance
-    @marker        = player.marker
     @ui            = UserInterface.new
-  end
-
-  def make_move
-    take_square(get_index)
-  end
-
-  def take_square(index)
-    @game_instance.board.boxes[index] = @marker
-    @game_instance.last_moves.push(index)
   end
 
   def get_index

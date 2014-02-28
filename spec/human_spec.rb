@@ -14,7 +14,7 @@ describe Human do
   describe '#move' do
     context 'when given an index that\'s empty' do
       it 'marks the gameboard at said index' do
-        allow_any_instance_of(HumanMove).to receive(:get_index).and_return(1)
+        allow_any_instance_of(MoveValidator).to receive(:get_index).and_return(1)
         human.move(game)
         expect(game.board.boxes[1]).to eq(X_MARKER)
       end

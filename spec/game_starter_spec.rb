@@ -9,7 +9,7 @@ describe GameStarter do
     end
   end
 
-  describe '#start_computer_game' do
+  describe '#create_computer_game' do
     it 'returns a game with a computer player given yes' do
       allow_any_instance_of(UserInterface).to receive(:determine_game_type).and_return("yes")
       test_game = starter.create_game

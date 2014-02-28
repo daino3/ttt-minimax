@@ -15,13 +15,13 @@ describe Computer do
 
   describe '#revert_last_move' do
     it 'pops off the last element in the last_moves array' do
-      allow_any_instance_of(HumanMove).to receive(:get_index).and_return(1)
+      allow_any_instance_of(MoveValidator).to receive(:get_index).and_return(1)
       player1.move(game)
       expect{computer.revert_last_move(game)}.to change{game.last_moves.length}.from(1).to(0)
     end
 
     it 'changes the board element at the index to empty' do
-      allow_any_instance_of(HumanMove).to receive(:get_index).and_return(1)
+      allow_any_instance_of(MoveValidator).to receive(:get_index).and_return(1)
       player1.move(game)
       computer.revert_last_move(game)
       expect(game.board.boxes[1]).to eq(EMPTY) 
@@ -43,17 +43,6 @@ describe Computer do
         rules.is_winner?
         expect(computer.get_score(game)).to eq(-1)
       end
-    end
-  end
-
-  describe '#take_square' do
-    it 'it claims a box on the board of an instance of a game' do
-      computer.take_square(game, O_MARKER, 0)
-      expect(game.board.boxes[0] == O_MARKER).to be_true 
-    end
-
-    it 'shovels the last move into the last_moves array' do
-      expect{computer.take_square(game, X_MARKER, 0)}.to change{game.last_moves.length}.from(0).to(1) 
     end
   end
 

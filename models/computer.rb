@@ -7,11 +7,17 @@ class Computer
   end
 
   def move(game_instance) # should do something similar as with human_move bc we're passing around an instance of a game
-    move_position, score = max_move(game_instance)
-    take_square(game_instance, @marker, move_position)
+    index = get_move(game_instance)
+    game_instance.take_square(index)
   end
 
-  def take_square(game_instance, marker, index)
+  def get_move(game_instance)
+    return MIDDLE if game_instance.board.get_free_positions.include?(MIDDLE)
+    move, score = max_move(game_instance)
+    move
+  end
+
+  def take_square(game_instance, marker, index) # same method as game class
     game_instance.board.boxes[index] = marker
     game_instance.last_moves.push(index)
   end
@@ -73,11 +79,8 @@ class Computer
   end
 
   def get_score(game_instance)
-    if game_instance.winner == @marker 
-      return CPU_WINS
-    elsif game_instance.winner == @opponent
-      return PLAYER_WINS
-    end
+    return CPU_WINS if game_instance.winner == @marker 
+    return PLAYER_WINS if game_instance.winner == @opponent
     return TIE_GAME
   end
 end

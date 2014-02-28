@@ -22,7 +22,7 @@ describe UserInterface do
     end
   end
 
-  describe '#display_first_player' do
+  describe '#display_players' do
     it 'logs a message with the player markers' do
       p1, p2 = Human.new(X_MARKER), Computer.new(O_MARKER)
       ui.output.should_receive(:puts).with("Player 1 is #{p1.class}(#{p1.marker}) and Player 2 is #{p2.class}(#{p2.marker})")
@@ -43,6 +43,11 @@ describe UserInterface do
       ui.input.stub(:gets) {"yes"}
       expect(ui.ask_to_play_again).to eq('yes')
     end
+
+    it 'returns the user input when no' do
+      ui.input.stub(:gets) {"no"}
+      expect(ui.ask_to_play_again).to eq('no')
+    end
   end
 
   describe '#display_exit_message' do
@@ -56,6 +61,20 @@ describe UserInterface do
     it 'logs the winning marker as winner' do
       ui.output.should_receive(:puts).with("#{X_MARKER} wins!!")
       ui.display_winner(X_MARKER)
+    end
+  end
+
+  describe '#display_tie' do
+    it 'logs the tie message' do
+      ui.output.should_receive(:puts).with("The Game is a tie")
+      ui.display_tie
+    end
+  end
+
+  describe '#display_invalid_move' do
+    it 'logs the message' do
+      ui.output.should_receive(:puts).with('Invalid move, please try again')
+      ui.display_invalid_move
     end
   end
 

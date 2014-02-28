@@ -17,7 +17,7 @@ class UserInterface
     return response
   end
 
-  def display_game_start_message(p1, p2)
+  def display_game_start_message(p1, p2) # tested each part of this independently
     display_players(p1, p2)
     display_first_player(p1)
     print_visual_break
