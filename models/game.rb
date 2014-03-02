@@ -5,7 +5,8 @@ class Game
     @player1 = player1
     @player2 = player2
     @current_player = player1
-    @ui     = UserInterface.new
+    @input  = UserInterface::Input.new
+    @output = UserInterface::Output.new
     @board  = board
     @last_moves = []
     @winner = nil
@@ -16,7 +17,7 @@ class Game
       player_turn
       change_player
     end
-    @ui.display_game_recap(self)
+    @output.display_game_recap(self)
     play_again?
   end
 
@@ -36,14 +37,14 @@ class Game
   end
 
   def play_again? 
-    response = @ui.ask_to_play_again
-    response == "yes" ? GameStarter.new.create_game.play : @ui.display_exit_message
+    response = @input.ask_to_play_again
+    response == "yes" ? GameStarter.new.create_game.play : @output.display_exit_message
   end
 
   def player_turn
-    @ui.print_board(@board)
+    UserInterface::BoardPrinter.new(@board).print_board
     @current_player.move(self)
-    @ui.print_visual_break
+    @output.print_visual_break
   end
 
 end

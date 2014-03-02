@@ -1,16 +1,17 @@
 class MoveValidator
-  attr_reader :game_instance, :ui
+  attr_reader :game_instance, :input, :output
   
   def initialize(game_instance)
     @game_instance = game_instance
-    @ui            = UserInterface.new
+    @output        = UserInterface::Output.new
+    @input         = UserInterface::Input.new    
   end
 
   def get_index
     while true
-      index = @ui.ask_player_for_move
+      index = @input.ask_player_for_move
       break if valid_input?(index)
-      @ui.display_invalid_move
+      @output.display_invalid_move
     end
     return index
   end
