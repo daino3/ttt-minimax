@@ -9,17 +9,14 @@ describe MoveValidator do
   describe '#initialize' do
     it 'is initialized with a game_instance and UX' do
       expect(validator.game_instance).to be_an(Game)
-      expect(validator.ui).to be_an(UserInterface)
-    end
-
-    it 'instantiates a user_interface' do
-      expect(validator.ui).to be_an(UserInterface)      
+      expect(validator.input).to be_an(UserInterface::Input)
+      expect(validator.output).to be_an(UserInterface::Output)
     end
   end
 
   describe '#get_index' do
     it 'will return a valid index' do
-      validator.ui.stub(:ask_player_for_move)  {1}
+      validator.input.stub(:ask_player_for_move)  {1}
       expect(validator.get_index).to eq(1)
     end
 

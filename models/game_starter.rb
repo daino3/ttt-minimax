@@ -1,14 +1,15 @@
 class GameStarter
-  attr_reader :ui
+  attr_reader :input, :output
 
   def initialize
-    @ui = UserInterface.new
+    @output = UserInterface::Output.new
+    @input  = UserInterface::Input.new
   end
 
   def create_game
-    p1, p2 = create_players(@ui.determine_game_type)
+    p1, p2 = create_players(@input.determine_game_type)
     p1, p2 = determine_first_player(p1, p2)
-    @ui.display_game_start_message(p1, p2)
+    @output.display_game_start_message(p1, p2)
     Game.new(p1, p2)
   end
 
