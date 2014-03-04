@@ -14,13 +14,12 @@ class GameStarter
     Game.new(p1, p2, board)
   end
 
-  def create_board(reponse)
-    size = response = 's'? 9 : 16 
+  def create_board(response)
+    size = (response == 's') ? 9 : 16 
     Board.new(size)
   end
 
   private
-
 
   def create_players(response)
     return Human.new(X_MARKER), response == "yes" ? Computer.new(O_MARKER) : Human.new(O_MARKER)

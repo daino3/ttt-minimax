@@ -2,11 +2,10 @@ class Rules
   attr_reader :game, :board
 
   def initialize(game_instance)
-    @game  = game_instance
     @board = game_instance.board.boxes.dup
-    @rows  = rows
-    @columns = columns
-    @diagonals = diagonals
+    @board_width = board_width
+    @winning_positions  = [rows, columns, diagonals]
+    binding.pry
   end
 
   # def is_gameover?
@@ -27,16 +26,6 @@ class Rules
   #   return false
   # end
 
-  # (3x3)
-  # ROWS    = [0,1,2], [3,4,5], [6,7,8] 
-  # COLUMNS = [0,3,6], [1,4,7], [2,5,8] 
-  # DIAGS   = [0,4,8], [2,4,6]
-
-  # (4x4)
-  # ROWS    = [0,1,2,3] , [4,5,6,7],  [8,9,10,11], [12,13,14,15] 
-  # COLUMNS = [0,4,8,12], [1,5,9,13], [2,6,7,14] , [3,7,11,15]
-  # DIAGS   = [0,4,8], [2,4,6]
-
   def board_width
     Math.sqrt(@board.length).to_i
   end
@@ -47,8 +36,8 @@ class Rules
 
   def rows
     map_board_to_indexes
-    board_width.times.map do |num|
-      @board.slice(board_width*num, board_width)
+    @board_width.times.map do |num|
+      @board.slice(@board_width*num, @board_width)
     end
   end
 
@@ -57,27 +46,22 @@ class Rules
   end
 
   def diagonals
-    diags = []
-    inc   = board_width - 1
-    index_num = inc
-    board_width.times do |num|
-      diags << index_num
-      index_num += inc
+    diags = add_diagonal(@board_width -1, @board_width - 1) << add_diagonal(0, @board_width + 1)  
+    diags.flatten!
+    
+    diagonals = 2.times.map do |num|
+      diags.slice(board_width*num, board_width)
     end
-
-    inc = board_width + 1
-    index_num = 0
-    board_width.times do |num|
-      diags << index_num
-      index_num += inc
-      binding.pry
-    end
-diagonals = 2.times do |num|
-  diags.slice(board_width*num, board_width)
-end
-
-      binding.pry
   end
+
+  def add_diagonal(starting_index, inc)
+    diags = []
+    @board_width.times do |num|
+      diags << starting_index      
+      starting_index += inc          
+    end
+    diags
+  end                         
 
   def map_board_to_indexes
     @board.each_with_index do |box, index|
@@ -85,9 +69,9 @@ end
     end
   end
 
-  # def is_tie?
-  #   @board.all? do |box| 
-  #     box != EMPTY 
-  #   end
-  # end
+  def is_tie?
+    @board.all? do |box| 
+      box != EMPTY 
+    end
+  end
 end
