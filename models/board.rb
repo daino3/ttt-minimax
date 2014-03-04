@@ -1,8 +1,8 @@
 class Board
   attr_accessor :boxes 
 
-  def initialize
-    @boxes = [EMPTY]*9
+  def initialize(size)
+    @boxes = [EMPTY]*size
   end
 
   def get_free_positions

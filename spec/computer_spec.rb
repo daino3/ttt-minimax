@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Computer do
   let(:player1)  { Human.new(O_MARKER) }
   let(:computer) { Computer.new(X_MARKER) }
-  let(:game)     { Game.new(computer, player1) }
+  let(:game)     { Game.new(computergm, player1) }
   let(:rules)    { Rules.new(game) }
 
   describe '#initialize' do

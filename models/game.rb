@@ -5,8 +5,8 @@ class Game
     @player1 = player1
     @player2 = player2
     @current_player = player1
-    @input  = UserInterface::Input.new
-    @output = UserInterface::Output.new
+    @input  = Console::Input.new
+    @output = Console::Output.new
     @board  = board
     @last_moves = []
     @winner = nil
@@ -42,7 +42,7 @@ class Game
   end
 
   def player_turn
-    UserInterface::BoardPrinter.new(@board).print_board
+    Console::BoardPrinter.new(@board).print_board
     @current_player.move(self)
     @output.print_visual_break
   end

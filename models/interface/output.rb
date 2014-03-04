@@ -1,37 +1,5 @@
-module UserInterface
+module Console
   
-  class Input
-    attr_reader :input
-
-    def initialize
-      @input  = $stdin
-      @output = Output.new
-    end
-
-    def determine_game_type
-      while true
-        @output.ask_for_game_type
-        response = @input.gets.chomp.downcase
-        break if response == 'yes' || response == 'no'
-      end
-      response
-    end
-
-    def ask_to_play_again
-      while true
-        @output.ask_to_play_again
-        response = @input.gets.chomp.downcase
-        break if response == 'yes' || response == 'no'
-      end
-      response
-    end
-
-    def ask_player_for_move
-      @output.prompt; index = @input.gets.chomp.to_i
-    end
-
-  end
-
   class Output
     attr_reader :output
 
@@ -49,6 +17,10 @@ module UserInterface
       display_players(p1, p2)
       display_first_player(p1)
       print_visual_break
+    end
+
+    def ask_for_board_size
+      @output.puts("What size board would you like to play with: Standard (3x3) or Large (4x4)? (S or L)")
     end
 
     def ask_for_game_type
@@ -91,40 +63,6 @@ module UserInterface
       @output.print ">>"
     end
 
-  end
-
-  class BoardPrinter
-    attr_reader :boxes, :output
-    
-    def initialize(board)
-      @boxes  = board.boxes.dup
-      @output = $stdout
-    end
-
-    def print_board
-      number_board
-      color_squares
-      3.times do |index|
-        @output.print @boxes.slice(3*index, 3).join(' | '), "\n"
-      end
-    end
-
-    private
-
-    def number_board
-      @boxes.each_with_index { |box, index| @boxes[index] = index if box == EMPTY }
-    end
-
-    def color_squares
-      @boxes.map! do |box|
-        case box 
-          when O_MARKER; box.bg_red;
-          when X_MARKER; box.bg_green;
-          else; box;
-        end
-      end
-    end
-  
   end
 
 end

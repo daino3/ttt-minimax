@@ -2,18 +2,25 @@ class GameStarter
   attr_reader :input, :output
 
   def initialize
-    @output = UserInterface::Output.new
-    @input  = UserInterface::Input.new
+    @output = Console::Output.new
+    @input  = Console::Input.new
   end
 
   def create_game
+    board  = create_board(@input.get_board_size)
     p1, p2 = create_players(@input.determine_game_type)
     p1, p2 = determine_first_player(p1, p2)
     @output.display_game_start_message(p1, p2)
-    Game.new(p1, p2)
+    Game.new(p1, p2, board)
+  end
+
+  def create_board(reponse)
+    size = response = 's'? 9 : 16 
+    Board.new(size)
   end
 
   private
+
 
   def create_players(response)
     return Human.new(X_MARKER), response == "yes" ? Computer.new(O_MARKER) : Human.new(O_MARKER)

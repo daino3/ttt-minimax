@@ -3,8 +3,8 @@ class MoveValidator
   
   def initialize(game_instance)
     @game_instance = game_instance
-    @output        = UserInterface::Output.new
-    @input         = UserInterface::Input.new    
+    @output        = Console::Output.new
+    @input         = Console::Input.new    
   end
 
   def get_index

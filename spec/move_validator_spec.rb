@@ -9,8 +9,8 @@ describe MoveValidator do
   describe '#initialize' do
     it 'is initialized with a game_instance and UX' do
       expect(validator.game_instance).to be_an(Game)
-      expect(validator.input).to be_an(UserInterface::Input)
-      expect(validator.output).to be_an(UserInterface::Output)
+      expect(validator.input).to be_an(Console::Input)
+      expect(validator.output).to be_an(Console::Output)
     end
   end
 

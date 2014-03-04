@@ -1,41 +1,5 @@
-require 'spec_helper'
-
-describe UserInterface::Input do
-  let(:input_ui) {UserInterface::Input.new}
-  
-  describe '#initialize' do
-    it 'instantiates an instance of $stdin' do
-      expect(input_ui.input).to be_an(IO)
-    end
-  end
-
-  describe '#ask_to_play_again' do
-    it 'returns the user input when yes' do
-      input_ui.input.stub(:gets) {"yes"}
-      expect(input_ui.ask_to_play_again).to eq('yes')
-    end
-
-    it 'returns the user input when no' do
-      input_ui.input.stub(:gets) {"no"}
-      expect(input_ui.ask_to_play_again).to eq('no')
-    end
-  end
-
-  describe '#determine_game_type' do
-    it 'returns the user input when yes' do
-      input_ui.input.stub(:gets) {"yes"}
-      expect(input_ui.determine_game_type).to eq("yes")
-    end
-
-    it 'returns the user input when no' do
-      input_ui.input.stub(:gets) {"no"}
-      expect(input_ui.determine_game_type).to eq("no")
-    end
-  end
-end
-
-describe UserInterface::Output do
-  let(:output_ui) {UserInterface::Output.new}
+describe Console::Output do
+  let(:output_ui) {Console::Output.new}
   
   describe '#initialize' do
     it 'instantiates an instance of $stdout' do
@@ -86,16 +50,11 @@ describe UserInterface::Output do
       output_ui.display_invalid_move
     end
   end
-end
 
-describe UserInterface::BoardPrinter do
-  let(:board)    {Board.new}
-  let(:board_ui) {UserInterface::BoardPrinter.new(board)}
-
-  describe '#print_board' do
-    it 'is initialized with a board and turns it into its array of game boxes' do
-      expect(board_ui.boxes).to be_an(Array)
+  describe '#ask_for_board_size' do
+    it 'asks the user to give them the desired board size' do
+      output_ui.output.should_receive(:puts).with('What size board would you like to play with: Standard (3x3) or Large (4x4)? (S or L)')
+      output_ui.ask_for_board_size
     end
   end
-
 end
