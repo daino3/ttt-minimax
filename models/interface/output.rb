@@ -19,6 +19,10 @@ module Console
       print_visual_break
     end
 
+    def ask_for_difficulty
+      @output.puts("Select your desired difficulty: easy(e) or impossible(i)")
+    end
+
     def ask_for_board_size
       @output.puts("What size board would you like to play with: Standard (3x3) or Large (4x4)? (S or L)")
     end

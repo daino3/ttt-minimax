@@ -8,10 +8,11 @@ class GameStarter
 
   def create_game
     board  = create_board(@input.get_board_size)
+    diff   = @input.get_difficulty
     p1, p2 = create_players(@input.determine_game_type)
     p1, p2 = determine_first_player(p1, p2)
     @output.display_game_start_message(p1, p2)
-    Game.new(p1, p2, board)
+    Game.new(p1, p2, diff, board)
   end
 
   def create_board(response)

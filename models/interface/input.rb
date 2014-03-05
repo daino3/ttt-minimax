@@ -17,6 +17,15 @@ module Console
       response
     end
 
+    def get_difficulty
+      while true
+        @output.ask_for_difficulty
+        response = @input.gets.chomp.downcase
+        break if response == 'e' || response == 'i'
+      end
+      response
+    end
+
     def get_board_size
       while true
         @output.ask_for_board_size
