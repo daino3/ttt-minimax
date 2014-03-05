@@ -4,15 +4,16 @@ module Console
     attr_reader :boxes, :output
     
     def initialize(board)
-      @boxes  = board.boxes.dup
+      @boxes       = board.boxes.dup
+      @board_width = Math.sqrt(@boxes.length).to_i
       @output = $stdout
     end
 
     def print_board
       number_board
       color_squares
-      3.times do |index|
-        @output.print @boxes.slice(3*index, 3).join(' | '), "\n"
+      @board_width.times do |index|
+        @output.print @boxes.slice(@board_width*index, @board_width).join(' | '), "\n"
       end
     end
 
