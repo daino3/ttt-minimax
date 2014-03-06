@@ -5,9 +5,9 @@ class Human
     @marker = marker
   end
 
-  def move(game_instance)
-    index = MoveValidator.new(game_instance.board).get_index
-    game_instance.take_square(index)
+  def move(board)
+    index = MoveValidator.new(board).get_index
+    board.take_square(index, @marker)
   end
 
 end

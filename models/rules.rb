@@ -1,10 +1,10 @@
 class Rules
-  attr_reader :game, :board
+  attr_reader :board, :board_width, :boxes
 
-  def initialize(game_instance)
-    @game        = game_instance
-    @board       = game_instance.board.boxes.dup
-    @board_dup   = @board.dup
+  def initialize(board)
+    @board       = board
+    @boxes       = board.boxes
+    @boxes_dup   = @boxes.dup
     @board_width = get_board_width
     @winning_positions = get_winning_positions
   end
@@ -17,9 +17,9 @@ class Rules
 
   def is_winner?
     @winning_positions.each do |group|
-      group.map! {|index| @board[index] } 
+      group.map! {|index| @boxes[index] } 
       if (group.all? {|e| e == group[0] } && group[0] != EMPTY)
-        @game.winner = group[0]
+        @board.winner = group[0]
         return true
       end
     end
@@ -27,7 +27,7 @@ class Rules
   end
 
   def is_tie?
-    @board.all? { |box| box != EMPTY }
+    @boxes.all? { |box| box != EMPTY }
   end
 
   private
@@ -38,12 +38,12 @@ class Rules
   end
 
   def get_board_width
-    Math.sqrt(@board.length).to_i
+    Math.sqrt(@boxes.length).to_i
   end
 
   def get_rows
     @board_width.times.map do |num|
-      @board_dup.slice(@board_width*num, @board_width)
+      @boxes_dup.slice(@board_width*num, @board_width)
     end
   end
 
@@ -70,8 +70,8 @@ class Rules
   end
 
   def map_board_to_indexes
-    @board_dup.each_with_index do |box, index|
-      @board_dup[index] = index
+    @boxes_dup.each_with_index do |box, index|
+      @boxes_dup[index] = index
     end
   end
 

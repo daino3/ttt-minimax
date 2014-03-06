@@ -12,7 +12,7 @@ module Console
       while true
         @output.ask_for_game_type
         response = @input.gets.chomp.downcase
-        break if response == 'yes' || response == 'no'
+        break if response == 'cpu' || response == 'local'
       end
       response
     end

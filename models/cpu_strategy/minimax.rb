@@ -1,28 +1,28 @@
 module Strategy
   class Minimax
-    attr_reader :game_instance, :cpu_marker, :opponent
+    attr_reader :board, :cpu_marker, :opponent
 
-    def initialize(game_instance)
-      @game_instance = game_instance
-      @cpu_marker    = game_instance.current_player.marker
-      @opponent      = @cpu_marker == X_MARKER ? O_MARKER : X_MARKER
+    def initialize(board, marker)
+      @board      = board
+      @cpu_marker = marker
+      @opponent   = @cpu_marker == X_MARKER ? O_MARKER : X_MARKER
     end
 
     def max_move
       best_score = best_move = nil
 
-      free_positions.each do |index|
-        take_square(@cpu_marker, index) # take_square with computer marker
+      @board.get_free_positions.each do |index|
+        @board.take_square(index, @cpu_marker)
 
-        if Rules.new(@game_instance).is_gameover?
+        if Rules.new(@board).is_gameover?
           score = get_score
         else
-          move_position, score = min_move # call min_move
+          position, score = min_move
         end
 
         revert_last_move
 
-        if best_score.nil? || score > best_score # change to > sign
+        if best_score.nil? || score > best_score #FYI: change to > sign
           best_score = score
           best_move  = index
         end 
@@ -33,18 +33,18 @@ module Strategy
     def min_move
       best_score = best_move = nil
 
-      free_positions.each do |index|
-        take_square(@opponent, index) # take_square with opponent marker
-    
-        if Rules.new(@game_instance).is_gameover?
+      @board.get_free_positions.each do |index|
+        @board.take_square(index, @opponent)
+
+        if Rules.new(@board).is_gameover?
           score = get_score
         else
-          move_position, score = max_move # call max_move
+          position, score = max_move
         end
-    
+
         revert_last_move
-        
-        if best_score.nil? || score < best_score # change to < sign
+
+        if best_score.nil? || score < best_score # FYI: change to < sign
           best_score = score
           best_move  = index
         end
@@ -52,24 +52,15 @@ module Strategy
       return best_move, best_score
     end
 
-    def free_positions
-      @game_instance.board.get_free_positions
-    end
-
-    def take_square(marker, index) # same method as game class
-      @game_instance.board.boxes[index] = marker
-      @game_instance.board.move_history.push(index)
-    end
-
     def revert_last_move
-      last_index = @game_instance.board.move_history.pop
-      @game_instance.board.boxes[last_index] = EMPTY
-      @game_instance.winner = false
+      last_index = @board.move_history.pop
+      @board.boxes[last_index] = EMPTY
+      @board.winner = false
     end
 
     def get_score
-      return CPU_WINS if @game_instance.winner == @cpu_marker
-      return PLAYER_WINS if @game_instance.winner == @opponent
+      return CPU_WINS if @board.winner == @cpu_marker
+      return OPPONENT_WINS if @board.winner == @opponent
       return TIE_GAME
     end
   end

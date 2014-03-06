@@ -5,24 +5,12 @@ describe Game do
   let(:game)    { Game.new(player1, player2, board) }
   
   describe '#initialize' do
-    it 'creates a game_board' do
-      expect(game.board).to be_an(Board) 
+    it 'has a game_board, and two players' do
+      expect(game.board).to be_an(Board)
+      expect(game.player1).to be_an(Human)
+      expect(game.player2).to be_an(Human)
     end
 
-    it 'creates a winner variable which is set to nil' do
-      expect(game.winner).to be_nil
-    end
-  end
-
-  describe '#take_square' do
-    it 'it claims a box on the board of an instance of a game' do
-      game.take_square(0)
-      expect(game.board.boxes[0] == game.current_player.marker).to be_true 
-    end
-
-    it 'shovels the last move into the last_moves array' do
-      expect{game.take_square(1)}.to change{game.board.move_history.length}.from(0).to(1) 
-    end
   end
 
   describe '#change_player' do
