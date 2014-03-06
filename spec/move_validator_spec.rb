@@ -2,12 +2,11 @@ describe MoveValidator do
   let(:player1)    { Human.new(O_MARKER) }
   let(:player2)    { Computer.new(X_MARKER) }
   let(:board)      { Board.new(9) }
-  let(:game)       { Game.new(player1, player2, board) }
-  let(:validator)  { MoveValidator.new(game) }
+  let(:validator)  { MoveValidator.new(board) }
 
   describe '#initialize' do
-    it 'is initialized with a game_instance and UX' do
-      expect(validator.game_instance).to be_an(Game)
+    it 'is initialized with a board and UX' do
+      expect(validator.board).to be_an(Board)
       expect(validator.input).to be_an(Console::Input)
       expect(validator.output).to be_an(Console::Output)
     end

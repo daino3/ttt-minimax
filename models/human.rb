@@ -6,7 +6,7 @@ class Human
   end
 
   def move(game_instance)
-    index = MoveValidator.new(game_instance).get_index
+    index = MoveValidator.new(game_instance.board).get_index
     game_instance.take_square(index)
   end
 

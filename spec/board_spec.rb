@@ -12,6 +12,10 @@ describe Board do
       expect(board1.boxes.all? {|e| e == EMPTY}).to be_true 
     end
 
+    it 'creates an array to chronicle the moves of the game' do
+      expect(board1.move_history).to be_an(Array) 
+    end
+
   end
 
   describe '#get_free_positions' do

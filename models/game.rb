@@ -9,7 +9,6 @@ class Game
     @difficulty = difficulty
     @input  = Console::Input.new
     @output = Console::Output.new
-    @last_moves = []
     @winner = nil
   end
 
@@ -24,7 +23,7 @@ class Game
 
   def take_square(index)
     @board.boxes[index] = @current_player.marker
-    @last_moves.push(index)
+    @board.move_history.push(index)
   end
 
   private

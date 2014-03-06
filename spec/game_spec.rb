@@ -9,10 +9,6 @@ describe Game do
       expect(game.board).to be_an(Board) 
     end
 
-    it 'creates an array to chronicle the moves of the game' do
-      expect(game.last_moves).to be_an(Array) 
-    end
-
     it 'creates a winner variable which is set to nil' do
       expect(game.winner).to be_nil
     end
@@ -25,7 +21,7 @@ describe Game do
     end
 
     it 'shovels the last move into the last_moves array' do
-      expect{game.take_square(1)}.to change{game.last_moves.length}.from(0).to(1) 
+      expect{game.take_square(1)}.to change{game.board.move_history.length}.from(0).to(1) 
     end
   end
 

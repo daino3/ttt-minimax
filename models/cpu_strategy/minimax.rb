@@ -58,11 +58,11 @@ module Strategy
 
     def take_square(marker, index) # same method as game class
       @game_instance.board.boxes[index] = marker
-      @game_instance.last_moves.push(index)
+      @game_instance.board.move_history.push(index)
     end
 
     def revert_last_move
-      last_index = @game_instance.last_moves.pop
+      last_index = @game_instance.board.move_history.pop
       @game_instance.board.boxes[last_index] = EMPTY
       @game_instance.winner = false
     end

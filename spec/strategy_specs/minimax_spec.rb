@@ -17,7 +17,7 @@ describe Strategy::Minimax do
     it 'pops off the last element in the last_moves array' do
       allow_any_instance_of(MoveValidator).to receive(:get_index).and_return(1)
       human.move(game)
-      expect{mini.revert_last_move}.to change{game.last_moves.length}.from(1).to(0)
+      expect{mini.revert_last_move}.to change{game.board.move_history.length}.from(1).to(0)
     end
 
     it 'changes the board element at the index to empty' do
