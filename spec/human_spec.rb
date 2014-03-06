@@ -1,9 +1,8 @@
-require 'spec_helper'
-
 describe Human do
   let(:human)     {Human.new(X_MARKER)}
   let(:computer)  {Computer.new(O_MARKER)}
-  let(:game)      {Game.new(human, computer)}
+  let(:board)     {Board.new(9)}
+  let(:game)      {Game.new(human, computer, board)}
 
   describe '#initialize' do
     it 'is initialized with a marker' do

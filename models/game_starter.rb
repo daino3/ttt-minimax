@@ -2,15 +2,23 @@ class GameStarter
   attr_reader :input, :output
 
   def initialize
-    @output = UserInterface::Output.new
-    @input  = UserInterface::Input.new
+    @output = Console::Output.new
+    @input  = Console::Input.new
   end
 
   def create_game
-    p1, p2 = create_players(@input.determine_game_type)
+    board  = create_board(@input.get_board_size)
+    game_type = @input.determine_game_type
+    diff   = @input.get_difficulty if game_type == "yes"
+    p1, p2 = create_players(game_type)
     p1, p2 = determine_first_player(p1, p2)
     @output.display_game_start_message(p1, p2)
-    Game.new(p1, p2)
+    Game.new(p1, p2, board, diff)
+  end
+
+  def create_board(response)
+    size = (response == 's') ? 9 : 16 
+    Board.new(size)
   end
 
   private

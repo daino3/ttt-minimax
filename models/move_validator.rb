@@ -1,10 +1,10 @@
 class MoveValidator
-  attr_reader :game_instance, :input, :output
+  attr_reader :board, :input, :output
   
-  def initialize(game_instance)
-    @game_instance = game_instance
-    @output        = UserInterface::Output.new
-    @input         = UserInterface::Input.new    
+  def initialize(board)
+    @board  = board
+    @output = Console::Output.new
+    @input  = Console::Input.new
   end
 
   def get_index
@@ -13,10 +13,10 @@ class MoveValidator
       break if valid_input?(index)
       @output.display_invalid_move
     end
-    return index
+    index
   end
 
   def valid_input?(index)
-    return true if @game_instance.board.get_free_positions.include?(index) 
+    @board.get_free_positions.include?(index) 
   end
 end

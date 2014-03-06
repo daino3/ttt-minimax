@@ -1,10 +1,9 @@
-require 'spec_helper'
-
-describe Minimax do
+describe Strategy::Minimax do
   let(:cpu)   { Computer.new(X_MARKER) }
   let(:human) { Human.new(O_MARKER) }
-  let(:game)  { Game.new(cpu, human) }
-  let(:mini)  { Minimax.new(game) } 
+  let(:board) { Board.new(9) }
+  let(:game)  { Game.new(cpu, human, board) }
+  let(:mini)  { Strategy::Minimax.new(game) } 
 
   describe '#initialize' do
     it 'is initialized with a marker and an oppenents marker' do
@@ -18,7 +17,7 @@ describe Minimax do
     it 'pops off the last element in the last_moves array' do
       allow_any_instance_of(MoveValidator).to receive(:get_index).and_return(1)
       human.move(game)
-      expect{mini.revert_last_move}.to change{game.last_moves.length}.from(1).to(0)
+      expect{mini.revert_last_move}.to change{game.board.move_history.length}.from(1).to(0)
     end
 
     it 'changes the board element at the index to empty' do

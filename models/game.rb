@@ -1,14 +1,14 @@
 class Game
-  attr_accessor :winner, :last_moves, :board, :player1, :player2, :current_player, :score, :moves
+  attr_accessor :winner, :last_moves, :board, :player1, :player2, :current_player, :score, :moves, :difficulty
 
-  def initialize(player1, player2, board=Board.new)
+  def initialize(player1, player2, board, difficulty = nil)
     @player1 = player1
     @player2 = player2
     @current_player = player1
-    @input  = UserInterface::Input.new
-    @output = UserInterface::Output.new
     @board  = board
-    @last_moves = []
+    @difficulty = difficulty
+    @input  = Console::Input.new
+    @output = Console::Output.new
     @winner = nil
   end
 
@@ -23,7 +23,7 @@ class Game
 
   def take_square(index)
     @board.boxes[index] = @current_player.marker
-    @last_moves.push(index)
+    @board.move_history.push(index)
   end
 
   private
@@ -42,7 +42,7 @@ class Game
   end
 
   def player_turn
-    UserInterface::BoardPrinter.new(@board).print_board
+    Console::BoardPrinter.new(@board).print_board
     @current_player.move(self)
     @output.print_visual_break
   end

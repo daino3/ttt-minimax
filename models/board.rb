@@ -1,8 +1,9 @@
 class Board
-  attr_accessor :boxes 
+  attr_accessor :boxes, :move_history
 
-  def initialize
-    @boxes = [EMPTY]*9
+  def initialize(size)
+    @boxes = [EMPTY]*size
+    @move_history = []
   end
 
   def get_free_positions
