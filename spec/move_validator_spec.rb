@@ -1,10 +1,9 @@
-require 'spec_helper'
-
 describe MoveValidator do
   let(:player1)    { Human.new(O_MARKER) }
   let(:player2)    { Computer.new(X_MARKER) }
-  let(:game)       { Game.new(player1, player2) }
-  let(:validator) { MoveValidator.new(game) }
+  let(:board)      { Board.new(9) }
+  let(:game)       { Game.new(player1, player2, board) }
+  let(:validator)  { MoveValidator.new(game) }
 
   describe '#initialize' do
     it 'is initialized with a game_instance and UX' do

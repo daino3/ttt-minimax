@@ -31,7 +31,7 @@ module Console
       @output.puts("Would you like to play against the computer? (Yes or No)")
     end
 
-    def ask_to_play_again
+    def play_again_message
       @output.puts('Would you like to play again? (Yes or No)')
     end
 

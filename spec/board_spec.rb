@@ -1,9 +1,7 @@
-require 'spec_helper'
-
 describe Board do
   let(:board1) {Board.new(9)}
   let(:board2) {Board.new(16)}
-  
+
   describe '#initialize' do
     it 'creates an array with desired number of elements' do
       expect(board1.boxes.length).to eq(9) 

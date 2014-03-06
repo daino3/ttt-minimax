@@ -13,10 +13,10 @@ class MoveValidator
       break if valid_input?(index)
       @output.display_invalid_move
     end
-    return index
+    index
   end
 
   def valid_input?(index)
-    return true if @game_instance.board.get_free_positions.include?(index) 
+    @game_instance.board.get_free_positions.include?(index) 
   end
 end

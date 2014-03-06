@@ -1,10 +1,9 @@
-require 'spec_helper'
-
-describe Minimax do
+describe Strategy::Minimax do
   let(:cpu)   { Computer.new(X_MARKER) }
   let(:human) { Human.new(O_MARKER) }
-  let(:game)  { Game.new(cpu, human) }
-  let(:mini)  { Minimax.new(game) } 
+  let(:board) { Board.new(9) }
+  let(:game)  { Game.new(cpu, human, board) }
+  let(:mini)  { Strategy::Minimax.new(game) } 
 
   describe '#initialize' do
     it 'is initialized with a marker and an oppenents marker' do

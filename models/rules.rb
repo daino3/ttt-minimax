@@ -23,8 +23,16 @@ class Rules
         return true
       end
     end
-    return false
+    false
   end
+
+  def is_tie?
+    @board.all? do |box| 
+      box != EMPTY 
+    end
+  end
+
+  private
 
   def get_winning_positions
     map_board_to_indexes
@@ -46,7 +54,7 @@ class Rules
   end
 
   def diagonals
-    diags = add_diagonal(@board_width -1, @board_width - 1) << add_diagonal(0, @board_width + 1)
+    diags = add_diagonal(@board_width -1, @board_width - 1) + add_diagonal(0, @board_width + 1)
     diags.flatten!
 
     diagonals = 2.times.map do |num|
@@ -69,9 +77,4 @@ class Rules
     end
   end
 
-  def is_tie?
-    @board.all? do |box| 
-      box != EMPTY 
-    end
-  end
 end

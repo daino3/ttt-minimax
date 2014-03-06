@@ -1,14 +1,13 @@
-require 'spec_helper'
-
 describe Rules do
   let(:player1) {Human.new(X_MARKER)}
   let(:player2) {Computer.new(O_MARKER)}
-  let(:game)    {Game.new(player1, player2)}
+  let(:board)   {Board.new(9)}
+  let(:game)    {Game.new(player1, player2, board)}
   let(:rules)   {Rules.new(game)}
 
   describe '#initialize' do
     it 'is initialized with a game_instance' do
-      expect(rules.game).to be_an(Game)      
+      expect(rules.game).to be_an(Game)
       expect(rules.board).to be_an(Array)
     end
   end
@@ -27,7 +26,7 @@ describe Rules do
       end
 
       it 'changes the winner variable' do
-        game.board.boxes[0] = game.board.boxes[1] = game.board.boxes[2] = "H"
+        game.board.boxes[0] = game.board.boxes[3] = game.board.boxes[6] = "H"
         expect{rules.is_winner?}.to change{game.winner}.from(nil).to("H")
       end
     end

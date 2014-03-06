@@ -1,13 +1,14 @@
 class Game
-  attr_accessor :winner, :last_moves, :board, :player1, :player2, :current_player, :score, :moves
+  attr_accessor :winner, :last_moves, :board, :player1, :player2, :current_player, :score, :moves, :difficulty
 
-  def initialize(player1, player2, board=Board.new)
+  def initialize(player1, player2, board, difficulty = nil)
     @player1 = player1
     @player2 = player2
     @current_player = player1
+    @board  = board
+    @difficulty = difficulty
     @input  = Console::Input.new
     @output = Console::Output.new
-    @board  = board
     @last_moves = []
     @winner = nil
   end

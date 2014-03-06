@@ -37,7 +37,7 @@ module Console
 
     def ask_to_play_again
       while true
-        @output.ask_to_play_again
+        @output.play_again_message
         response = @input.gets.chomp.downcase
         break if response == 'yes' || response == 'no'
       end

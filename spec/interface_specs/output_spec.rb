@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Console::Output do
   let(:output_ui) {Console::Output.new}
   

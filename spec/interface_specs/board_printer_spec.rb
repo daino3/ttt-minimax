@@ -1,5 +1,5 @@
 describe Console::BoardPrinter do
-  let(:board)    {Board.new}
+  let(:board)    {Board.new(9)}
   let(:board_ui) {Console::BoardPrinter.new(board)}
 
   describe '#print_board' do

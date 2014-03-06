@@ -1,9 +1,8 @@
-require 'spec_helper'
-
 describe Game do
   let(:player1) { Human.new(O_MARKER) }
   let(:player2) { Human.new(X_MARKER) }
-  let(:game)    { Game.new(player1, player2) }
+  let(:board)   { Board.new(9) }
+  let(:game)    { Game.new(player1, player2, board) }
   
   describe '#initialize' do
     it 'creates a game_board' do
