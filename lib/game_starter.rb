@@ -19,15 +19,15 @@ class GameStarter
     Game.new(p1, p2, board)
   end
 
+  private
+
   def create_board(type)
     size = (type == STANDARD) ? 9 : 16
     Board.new(size)
   end
 
-  private
-
   def create_players(game_type, difficulty)
-    return Human.new(X_MARKER), game_type == CPU_GAME ? Computer.new(O_MARKER, difficulty) : Human.new(O_MARKER)
+    return Human.new(X_MARKER), (game_type == CPU_GAME) ? Computer.new(O_MARKER, difficulty) : Human.new(O_MARKER)
   end
 
   def determine_first_player(p1, p2)

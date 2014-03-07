@@ -1,13 +1,13 @@
 class Game
-  attr_accessor :winner, :last_moves, :board, :player1, :player2, :current_player, :score, :moves, :difficulty
+  attr_accessor :board, :player1, :player2, :current_player
 
   def initialize(player1, player2, board)
     @player1 = player1
     @player2 = player2
     @current_player = player1
-    @board  = board
-    @input  = Console::Input.new
-    @output = Console::Output.new
+    @board   = board
+    @input   = Console::Input.new
+    @output  = Console::Output.new
   end
 
   def play # how do I test this?

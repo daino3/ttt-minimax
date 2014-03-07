@@ -16,8 +16,7 @@ class Computer
 
     if @difficulty == IMPOSSIBLE
       return MIDDLE if avail_moves.include?(MIDDLE)
-      move, score = Strategy::Minimax.new(board, @marker).max_move
-      move
+      Strategy::Minimax.new(board, @marker).index
     elsif @difficulty == EASY
       Strategy::EasyCPU.new(board).get_index
     end
