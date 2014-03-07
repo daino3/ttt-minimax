@@ -25,4 +25,15 @@ describe Board do
     end
   end
   
+  describe '#take_square' do
+    it 'it claims a box on the board of an instance of a game' do
+      board1.take_square(0, "H")
+      expect(board1.boxes[0]).to eq("H") 
+    end
+
+    it 'shovels the last move into the last_moves array' do
+      expect{board1.take_square(1, "H")}.to change{board1.move_history.length}.from(0).to(1) 
+    end
+  end
+
 end

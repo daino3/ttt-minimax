@@ -1,15 +1,13 @@
 class Game
-  attr_accessor :winner, :last_moves, :board, :player1, :player2, :current_player, :score, :moves, :difficulty
+  attr_accessor :board, :player1, :player2, :current_player
 
-  def initialize(player1, player2, board, difficulty = nil)
+  def initialize(player1, player2, board)
     @player1 = player1
     @player2 = player2
     @current_player = player1
-    @board  = board
-    @difficulty = difficulty
-    @input  = Console::Input.new
-    @output = Console::Output.new
-    @winner = nil
+    @board   = board
+    @input   = Console::Input.new
+    @output  = Console::Output.new
   end
 
   def play # how do I test this?
@@ -17,13 +15,8 @@ class Game
       player_turn
       change_player
     end
-    @output.display_game_recap(self)
+    @output.display_game_recap(@board)
     play_again?
-  end
-
-  def take_square(index)
-    @board.boxes[index] = @current_player.marker
-    @board.move_history.push(index)
   end
 
   private
@@ -33,7 +26,7 @@ class Game
   end
 
   def game_over?
-    Rules.new(self).is_gameover?
+    Rules.new(@board).is_gameover?
   end
 
   def play_again? 
@@ -43,7 +36,7 @@ class Game
 
   def player_turn
     Console::BoardPrinter.new(@board).print_board
-    @current_player.move(self)
+    @current_player.move(@board)
     @output.print_visual_break
   end
 

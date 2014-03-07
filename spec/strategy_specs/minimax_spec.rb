@@ -1,46 +1,41 @@
 describe Strategy::Minimax do
-  let(:cpu)   { Computer.new(X_MARKER) }
-  let(:human) { Human.new(O_MARKER) }
   let(:board) { Board.new(9) }
-  let(:game)  { Game.new(cpu, human, board) }
-  let(:mini)  { Strategy::Minimax.new(game) } 
+  let(:mini)  { Strategy::Minimax.new(board, X_MARKER) } 
 
   describe '#initialize' do
     it 'is initialized with a marker and an oppenents marker' do
-      expect(mini.game_instance).to be_an(Game)
-      expect(mini.cpu_marker).to eq(cpu.marker)      
-      expect(mini.opponent).to eq(human.marker)
+      expect(mini.board).to be_an(Board)
+      expect(mini.cpu_marker).to eq(X_MARKER)
+      expect(mini.opponent).to eq(O_MARKER)
     end
   end
 
   describe '#revert_last_move' do
     it 'pops off the last element in the last_moves array' do
-      allow_any_instance_of(MoveValidator).to receive(:get_index).and_return(1)
-      human.move(game)
-      expect{mini.revert_last_move}.to change{game.board.move_history.length}.from(1).to(0)
+      board.take_square(1, X_MARKER)
+      expect{mini.revert_last_move}.to change{board.move_history.length}.from(1).to(0)
     end
 
     it 'changes the board element at the index to empty' do
-      allow_any_instance_of(MoveValidator).to receive(:get_index).and_return(1)
-      human.move(game)
+      board.take_square(1, X_MARKER)
       mini.revert_last_move
-      expect(game.board.boxes[1]).to eq(EMPTY) 
+      expect(board.boxes[1]).to eq(EMPTY) 
     end
   end
 
   describe '#get_score' do
     context 'when the computer wins' do
       it 'return a positive 1' do
-        game.board.boxes[0] = game.board.boxes[1] = game.board.boxes[2] = X_MARKER
-        Rules.new(game).is_winner?
+        board.boxes[0] = board.boxes[1] = board.boxes[2] = X_MARKER
+        Rules.new(board).is_winner?
         expect(mini.get_score).to eq(1)
       end
     end
 
     context 'when the opponent wins' do
       it 'return a negative 1' do
-        game.board.boxes[0] = game.board.boxes[1] = game.board.boxes[2] = O_MARKER
-        Rules.new(game).is_winner?
+        board.boxes[0] = board.boxes[1] = board.boxes[2] = O_MARKER
+        Rules.new(board).is_winner?
         expect(mini.get_score).to eq(-1)
       end
     end

@@ -13,7 +13,7 @@ describe Console::Output do
 
   describe '#display_players' do
     it 'logs a message with the player markers' do
-      p1, p2 = Human.new(X_MARKER), Computer.new(O_MARKER)
+      p1, p2 = Human.new(X_MARKER), Computer.new(O_MARKER, IMPOSSIBLE)
       stub_message("Player 1 is #{p1.class}(#{p1.marker}) and Player 2 is #{p2.class}(#{p2.marker})")
       output_ui.display_players(p1, p2)
     end

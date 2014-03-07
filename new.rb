@@ -5,6 +5,7 @@ WINNING_SCORE = 1
 LOSING_SCORE = -1
 TIE = 0
 MIDDLE_SQUARE = 4
+WINNING_POSITIONS = [[0,1,2], [3,4,5], [6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]] 
 $winner = nil
 
 class Board
@@ -40,8 +41,9 @@ def minimax(player, board, counter = 0)
     board.mark(move, player)
     moves << player_move(player, move, board, counter)
     sleep(1.0)
+    print "Stack Level: #{counter}) -----------------", board.boxes, "winner:#{$winner if $winner}", "\n"
     puts "I'm Here with #{moves}"
-    print "#{counter}) -----------------", board.boxes, "winner:#{$winner if $winner}", "\n"
+    puts "Current Index: #{move}"
     board.print_board
     revert_last_move(board)
     found_best_move?(moves[-1])
@@ -114,9 +116,9 @@ board  = Board.new
 board.mark(0, X_MARKER)
 board.mark(1, O_MARKER)
 board.mark(2, X_MARKER)
-# board.mark(3, O_MARKER)
-# board.mark(4, X_MARKER)
-# board.mark(5, O_MARKER)
+board.mark(3, O_MARKER)
+board.mark(4, X_MARKER)
+board.mark(5, O_MARKER)
 player   = X_MARKER
 computer = O_MARKER
 

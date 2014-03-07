@@ -43,16 +43,16 @@ describe Console::Input do
   end
 
   describe '#determine_game_type' do
-    it 'returns the user input when yes' do
+    it 'returns the user input when cpu' do
       stub_output(:ask_for_game_type, nil)
-      input_ui.input.stub(:gets) {"yes"}
-      test_response('determine_game_type', 'yes')
+      input_ui.input.stub(:gets) {"cpu"}
+      test_response('determine_game_type', CPU_GAME)
     end
 
-    it 'returns the user input when no' do
+    it 'returns the user input when local' do
       stub_output(:ask_for_game_type, nil)
-      input_ui.input.stub(:gets) {"no"}
-      test_response('determine_game_type', 'no')
+      input_ui.input.stub(:gets) {"local"}
+      test_response('determine_game_type', LOCAL_GAME)
     end
   end
 end

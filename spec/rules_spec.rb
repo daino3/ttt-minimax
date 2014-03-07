@@ -1,14 +1,15 @@
 describe Rules do
   let(:player1) {Human.new(X_MARKER)}
-  let(:player2) {Computer.new(O_MARKER)}
   let(:board)   {Board.new(9)}
-  let(:game)    {Game.new(player1, player2, board)}
-  let(:rules)   {Rules.new(game)}
+  let(:rules)   {Rules.new(board)}
 
   describe '#initialize' do
-    it 'is initialized with a game_instance' do
-      expect(rules.game).to be_an(Game)
-      expect(rules.board).to be_an(Array)
+    it 'is initialized with a board' do
+      expect(rules.board).to be_an(Board)
+    end
+
+    it 'is finds the board width' do
+      expect(rules.board_width).to eq(3)
     end
   end
 
@@ -21,13 +22,13 @@ describe Rules do
   describe '#is_winner?' do
     context 'when there IS A winner..' do
       it 'returns true' do
-        game.board.boxes[0] = game.board.boxes[1] = game.board.boxes[2] = "H"
+        rules.boxes[0] = rules.boxes[1] = rules.boxes[2] = "H"
         expect(rules.is_winner?).to be_true
       end
 
       it 'changes the winner variable' do
-        game.board.boxes[0] = game.board.boxes[3] = game.board.boxes[6] = "H"
-        expect{rules.is_winner?}.to change{game.winner}.from(nil).to("H")
+        rules.boxes[0] = rules.boxes[3] = rules.boxes[6] = "H"
+        expect{rules.is_winner?}.to change{board.winner}.from(nil).to("H")
       end
     end
  
@@ -40,12 +41,12 @@ describe Rules do
 
   describe '#is_tie?' do
     it 'returns false if there are empty spaces on the board' do
-      game.board.boxes[0] = "TEST"
+      rules.boxes[0] = "TEST"
       expect(rules.is_tie?).to be_false
     end
 
     it 'returns true if the board is full' do
-      game.board.boxes.map! do |e|
+      rules.boxes.map! do |e|
         e ="TEST"
       end
       expect(rules.is_tie?).to be_true

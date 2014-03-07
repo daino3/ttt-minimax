@@ -7,10 +7,10 @@ module Console
       @output = $stdout
     end
 
-    def display_game_recap(game_instance)
-      display_winner(game_instance.winner) if Rules.new(game_instance).is_winner?
-      display_tie if Rules.new(game_instance).is_tie?
-      BoardPrinter.new(game_instance.board).print_board
+    def display_game_recap(board)
+      display_winner(board.winner) if Rules.new(board).is_winner?
+      display_tie if Rules.new(board).is_tie?
+      BoardPrinter.new(board).print_board
     end
 
     def display_game_start_message(p1, p2) # tested each part of this independently
@@ -28,7 +28,7 @@ module Console
     end
 
     def ask_for_game_type
-      @output.puts("Would you like to play against the computer? (Yes or No)")
+      @output.puts("Choose your game type? (cpu or local)")
     end
 
     def play_again_message
