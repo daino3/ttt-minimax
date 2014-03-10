@@ -5,7 +5,7 @@ describe Strategy::Minimax do
   describe '#initialize' do
     it 'is initialized with a marker and an oppenents marker' do
       expect(mini.board).to be_an(Board)
-      expect(mini.cpu_marker).to eq(X_MARKER)
+      expect(mini.cpu).to eq(X_MARKER)
       expect(mini.opponent).to eq(O_MARKER)
     end
   end
@@ -41,4 +41,78 @@ describe Strategy::Minimax do
     end
   end
 
+  describe '#generate_moves' do
+    context 'when given a board' do
+      it 'returns the best possible move' do
+        # X | O | X
+        # O | X | O
+        # - | - | -
+        
+        # board = Board.new(9)
+        # x_moves = [0,2,4]
+        # o_moves = [1,3,5]
+        # x_moves.each {|i| board.boxes[i] = X_MARKER} # assume X is computer
+        # o_moves.each {|i| board.boxes[i] = O_MARKER} # assume O is player
+        # game = Strategy::Minimax.new(board, X_MARKER).generate_games(X_MARKER)
+        # expect(game).to be_an(Strategy::FinishedGame)
+        # expect(game.move).to eq(6)
+      end
+
+       it 'returns the best possible move' do
+        #  X | O | O
+        #  - | O | X
+        #  - | X | -
+
+         board = Board.new(9)
+         x_moves = [0,5,7]
+         o_moves = [1,2,4]
+         x_moves.each {|i| board.boxes[i] = X_MARKER} # assume X is computer
+         o_moves.each {|i| board.boxes[i] = O_MARKER} # assume O is player
+         
+         move_struct = Strategy::Minimax.new(board, X_MARKER).generate_moves(X_MARKER)
+         expect(move_struct.move).to eq(6)
+       end
+
+       it 'will win if given the opportunity' do
+        #  X | O | -
+        #  - | O | -
+        #  - | - | X
+
+         board = Board.new(9)
+         x_moves = [0,8]
+         o_moves = [1,4]
+         x_moves.each {|i| board.boxes[i] = X_MARKER} # assume X is computer
+         o_moves.each {|i| board.boxes[i] = O_MARKER} # assume O is player
+         
+         move_struct = Strategy::Minimax.new(board, X_MARKER).generate_moves(X_MARKER)
+         expect(move_struct.move).to eq(7)
+       end
+    end
+  end
+
+  describe '#pick_best_move' do
+    context 'when even depth (cpu turn)' do
+      it 'sorts moves by max score and min depth' do
+        move1 = Strategy::PlayerMove.new(6, 1, 3)
+        move2 = Strategy::PlayerMove.new(8, 0, 1)
+        move3 = Strategy::PlayerMove.new(7, 1, 7)
+        move4 = Strategy::PlayerMove.new(1, -1, 4)
+        move5 = Strategy::PlayerMove.new(1, 0, 4)
+        unsorted_moves = [move1, move2, move3, move4, move5]
+        expect(mini.pick_best_move(unsorted_moves, 0)).to eq(move1)
+      end
+    end
+
+    context 'when given an odd depth (player turn)' do
+      it 'sorts moves by min score and min depth' do
+        move1 = Strategy::PlayerMove.new(6, 1, 3)
+        move2 = Strategy::PlayerMove.new(8, 0, 1)
+        move3 = Strategy::PlayerMove.new(7, 1, 7)
+        move4 = Strategy::PlayerMove.new(1, -1, 4)
+        move5 = Strategy::PlayerMove.new(1, -1, 5)
+        unsorted_moves = [move1, move2, move3, move4, move5]
+        expect(mini.pick_best_move(unsorted_moves, 1)).to eq(move4)
+      end
+    end 
+  end
 end

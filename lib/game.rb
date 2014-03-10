@@ -1,13 +1,13 @@
 class Game
   attr_accessor :board, :player1, :player2, :current_player
 
-  def initialize(player1, player2, board)
+  def initialize(player1, player2, board, interface=Console)
     @player1 = player1
     @player2 = player2
     @current_player = player1
     @board   = board
-    @input   = Console::Input.new
-    @output  = Console::Output.new
+    @input   = interface::Input.new
+    @output  = interface::Output.new
   end
 
   def play # how do I test this?

@@ -1,42 +1,56 @@
 module Strategy
-  FinishedGame = Struct.new(:move, :score, :depth)
+  PlayerMove = Struct.new(:move, :score, :depth)
 
   class Minimax
-    attr_reader :board, :cpu, :opponent, :index
+    attr_reader :board, :cpu, :opponent
 
     def initialize(board, marker)
       @board    = board
       @cpu      = marker
       @opponent = @cpu == X_MARKER ? O_MARKER : X_MARKER
-      @index    = minimax(@cpu).move
     end
 
-    def minimax(current_player, depth = 0)
-      completed_games = []
+    def get_best_move
+      generate_moves(@cpu).move
+    end
 
+    def generate_moves(current_player, depth = 0)
+      moves = []
       @board.get_free_positions.each do |index|
         @board.take_square(index, current_player)
-        completed_games << player_move(current_player, index, depth)
+        moves << player_move(current_player, index, depth)
+        # sleep(1.0)
+        # puts '======================================='
+        # puts '======================================='
+        # Console::BoardPrinter.new(@board).print_board
+        # puts "Stack Level: #{depth}"
+        # puts "Current Index: #{index}"
+        # puts "Score: #{moves.last.score}"
+        # puts "Winner: #{@board.winner if @board.winner}"
+        # puts "Moves: #{moves}"
         revert_last_move
       end
-      best_move(completed_games)
+      pick_best_move(moves, depth)
     end
 
     def player_move(current_payer, index, depth)
      if Rules.new(@board).is_gameover?
-       FinishedGame.new(index, get_score, depth)
+       PlayerMove.new(index, get_score, depth)
      else
        next_player = current_payer == @cpu ? @opponent : @cpu
-       sub_move    = minimax(next_player, depth += 1)
-       FinishedGame.new(index, -sub_move.score, sub_move.depth)
+       child = generate_moves(next_player, depth += 1)
+       PlayerMove.new(index, child.score, child.depth)
      end
     end
 
-    def best_move(finished_games)
-      sorted_games = finished_games.sort do |a, b|
-        [a.score, a.depth] <=> [b.score, b.depth]
+    def pick_best_move(moves, depth)
+      if depth.even? # or cpu turn at stack level
+        # sort by max score and min depth
+        moves.sort { |a, b| [b.score, a.depth] <=> [a.score, b.depth] }.first
+      else
+        # sort by min score and min depth
+        moves.sort { |a, b| [a.score, a.depth] <=> [b.score, b.depth] }.first
       end
-      sorted_games.max_by {|m| m.score}
     end
 
     def revert_last_move
