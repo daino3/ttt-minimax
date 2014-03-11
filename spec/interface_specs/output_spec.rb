@@ -1,6 +1,6 @@
 describe Console::Output do
   let(:output_ui) {Console::Output.new}
-  
+
   describe '#initialize' do
     it 'instantiates an instance of $stdout' do
       expect(output_ui.output).to be_an(IO)

@@ -1,13 +1,15 @@
 class Game
   attr_accessor :board, :player1, :player2, :current_player
+  attr_reader :input, :output
 
   def initialize(player1, player2, board, interface=Console)
     @player1 = player1
     @player2 = player2
     @current_player = player1
     @board   = board
-    @input   = interface::Input.new
-    @output  = interface::Output.new
+    @ux      = interface
+    @input   = @ux::Input.new
+    @output  = @ux::Output.new
   end
 
   def play # how do I test this?
@@ -31,13 +33,20 @@ class Game
 
   def play_again? 
     response = @input.ask_to_play_again
-    response == "yes" ? GameStarter.new.create_game.play : @output.display_exit_message
+    response == "yes" ? begin_new_game : @output.display_exit_message
+  end
+
+  def begin_new_game
+    GameStarter.new.create_game.play
   end
 
   def player_turn
-    Console::BoardPrinter.new(@board).print_board
+    print_board
     @current_player.move(@board)
     @output.print_visual_break
   end
 
+  def print_board
+    @ux::BoardPrinter.new(@board).print_board
+  end
 end

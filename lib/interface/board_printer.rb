@@ -1,19 +1,19 @@
 module Console
-  
   class BoardPrinter
     attr_reader :boxes, :output
-    
+
     def initialize(board)
-      @boxes       = board.boxes.dup
-      @board_width = Math.sqrt(@boxes.length).to_i
+      @boxes  = board.boxes.dup
+      @width  = Math.sqrt(@boxes.length).to_i
       @output = $stdout
     end
 
     def print_board
       number_board
       color_squares
-      @board_width.times do |index|
-        @output.print @boxes.slice(@board_width*index, @board_width).join(' | '), "\n"
+      @width.times do |index|
+        row = @boxes.slice(@width*index, @width)
+        @output.puts row.join(' | ')
       end
     end
 
@@ -32,7 +32,5 @@ module Console
         end
       end
     end
-  
   end
-
 end

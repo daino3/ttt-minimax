@@ -54,8 +54,8 @@ module Strategy
     end
 
     def revert_last_move
-      last_index = @board.move_history.pop
-      @board.boxes[last_index] = EMPTY
+      last_move = @board.move_history.pop
+      @board.boxes[last_move] = EMPTY
       @board.winner = false
     end
 

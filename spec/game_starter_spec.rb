@@ -19,13 +19,13 @@ describe GameStarter do
   describe '#create_board' do
     context 'when given S' do
       it 'returns a 3x3 board' do
-        expect(starter.create_board('s').boxes.length).to eq(9)
+        expect(starter.send(:create_board, 's').boxes.length).to eq(9)
       end
     end
 
     context 'when given L' do
       it 'returns a 4x4 board' do
-        expect(starter.create_board('l').boxes.length).to eq(16)
+        expect(starter.send(:create_board,'l').boxes.length).to eq(16)
       end
     end
   end

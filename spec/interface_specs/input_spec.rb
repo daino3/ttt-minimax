@@ -1,6 +1,6 @@
 describe Console::Input do
-  let(:input_ui) {Console::Input.new}
-  let(:output_ui) {Console::Output.new}
+  let(:input_ui)  { Console::Input.new }
+  let(:output_ui) { Console::Output.new }
 
   def test_response(method, result)
     expect(input_ui.send(method)).to eq(result)
